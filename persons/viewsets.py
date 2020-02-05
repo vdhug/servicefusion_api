@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from .models import Address
-from .serializers import AddressSerializer
+from .models import Person
+from .serializers import PersonSerializer
 
 
-class AddressViewSet(viewsets.ModelViewSet):
-    queryset = Address.objects.all()
-    serializer_class = AddressSerializer
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer

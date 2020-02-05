@@ -1,6 +1,6 @@
 from rest_framework import routers
-from persons.viewsets import AddressViewSet
+from persons.viewsets import PersonViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'address', AddressViewSet)
+router.register(r'person', PersonViewSet)
