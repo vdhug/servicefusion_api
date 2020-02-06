@@ -3,4 +3,4 @@ from persons.viewsets import PersonViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'person', PersonViewSet)
+router.register(r'persons', PersonViewSet)
