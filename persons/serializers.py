@@ -45,10 +45,10 @@ class PersonSerializer(serializers.ModelSerializer):
             Email(address=email['address'], person=p).save()
         
         for phone in phones:
-            Phone(phone=email['phone'], person=p).save()
+            Phone(phone=phone['phone'], person=p).save()
         
         for address in addresses:
-            Address(address=email['address'], person=p).save()
+            Address(address=address['address'], person=p).save()
 
         return p
     
