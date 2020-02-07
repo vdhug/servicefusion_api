@@ -1,8 +1,40 @@
 from rest_framework import viewsets
 from .models import Person
 from .serializers import PersonSerializer
-
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from datetime import date
 
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+    
+
+
+class AnalyticsViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    
+    @action(methods=['get'], detail=False)
+    def stats(self, request):
+        today = date.today()
+
+        oldest = self.get_queryset().order_by("birth").first()
+        oldest_age = today.year - oldest.birth.year - ((today.month, today.day) < (oldest.birth.month, oldest.birth.day))
+
+        younger = self.get_queryset().order_by("birth").last()
+        younger_age = today.year - younger.birth.year - ((today.month, today.day) < (younger.birth.month, younger.birth.day))
+
+        total= self.get_queryset().count()
+        return Response(
+            {
+                'total': total,
+                'younger': {
+                    'age': younger_age,
+                    'birth': younger.birth
+                },
+                'oldest': {
+                    'age': oldest_age,
+                    'birth': oldest.birth
+                }
+            }
+        )
