@@ -53,15 +53,7 @@ class AnalyticsViewSet(viewsets.ModelViewSet):
         adult_count = Person.objects.all().filter(birth__year__range=(elderly, adult)).count()
 
         r = {
-            "hoverBackgroundColor": "red",
-            "hoverBorderWidth": 5,
-            "labels": ["Young", "Adult", "Elderly"],
-            "datasets": [
-                {
-                    "label": "Age distribution",
-                    "backgroundColor": ["#41B883", "#E46651", "#00D8FF"],
-                    "data": [young_count, adult_count, elderly_count]
-                }
-            ]
+            "data": [young_count, adult_count, elderly_count],
+            "labels": ["Young", "Adult", "Elderly"]
         }
         return Response(r)
