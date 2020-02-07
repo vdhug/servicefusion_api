@@ -6,6 +6,9 @@ class Person(models.Model):
     last_name = models.CharField(max_length=30)
     birth = models.DateField()
 
+    def __str__(self):
+        return "{} year of birth {}".format(self.first_name, self.birth.year)
+
     @property
     def emails(self):
         return self.email_set.all()
