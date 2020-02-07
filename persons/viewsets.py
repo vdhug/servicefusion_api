@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .models import Person
+from .models import Person, Email, Address, Phone
 from .serializers import PersonSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -55,5 +55,17 @@ class AnalyticsViewSet(viewsets.ModelViewSet):
         r = {
             "data": [young_count, adult_count, elderly_count],
             "labels": ["Young", "Adult", "Elderly"]
+        }
+        return Response(r)
+    
+    @action(methods=['get'], detail=False)
+    def secondary(self, request):        
+        phones_count = Phone.objects.all().count()
+        emails_count = Email.objects.all().count()
+        addresses_count = Address.objects.all().count()
+
+        r = {
+            "data": [phones_count, emails_count, addresses_count],
+            "labels": ["Phones", "Emails", "Addresses"]
         }
         return Response(r)
