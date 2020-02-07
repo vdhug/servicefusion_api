@@ -42,13 +42,13 @@ class PersonSerializer(serializers.ModelSerializer):
         p = Person.objects.create(**validated_data)
 
         for email in emails:
-            Email(address=email['address'], person=p).save()
+            Email(**email, person=p).save()
         
         for phone in phones:
-            Phone(phone=phone['phone'], person=p).save()
+            Phone(**phone, person=p).save()
         
         for address in addresses:
-            Address(address=address['address'], person=p).save()
+            Address(**address, person=p).save()
 
         return p
     
