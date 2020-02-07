@@ -18,14 +18,15 @@ class AnalyticsViewSet(viewsets.ViewSet):
     @action(methods=['get'], detail=False)
     def stats(self, request):
         today = date.today()
+        qs = Person.objects.all()
 
-        oldest = self.get_queryset().order_by("birth").first()
+        oldest = qs.order_by("birth").first()
         oldest_age = today.year - oldest.birth.year - ((today.month, today.day) < (oldest.birth.month, oldest.birth.day))
 
-        younger = self.get_queryset().order_by("birth").last()
+        younger = qs.order_by("birth").last()
         younger_age = today.year - younger.birth.year - ((today.month, today.day) < (younger.birth.month, younger.birth.day))
 
-        total= self.get_queryset().count()
+        total= qs.count()
         return Response(
             {
                 'total': total,
