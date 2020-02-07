@@ -11,7 +11,6 @@ from dateutil.relativedelta import relativedelta
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-    
 
 
 class AnalyticsViewSet(viewsets.ModelViewSet):
@@ -53,8 +52,16 @@ class AnalyticsViewSet(viewsets.ModelViewSet):
         
         adult_count = Person.objects.all().filter(birth__year__range=(elderly, adult)).count()
 
-        return Response({
-            "young": young_count,
-            "adults": adult_count,
-            "elderly": elderly_count,
-        })
+        r = {
+            "hoverBackgroundColor": "red",
+            "hoverBorderWidth": 5,
+            "labels": ["Young", "Adult", "Elderly"],
+            "datasets": [
+                {
+                    "label": "Age distribution",
+                    "backgroundColor": ["#41B883", "#E46651", "#00D8FF"],
+                    "data": [young_count, adult_count, elderly_count]
+                }
+            ]
+        }
+        return Response(r)
