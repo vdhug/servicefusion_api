@@ -3,5 +3,5 @@ from persons.viewsets import PersonViewSet, AnalyticsViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'persons', PersonViewSet)
-router.register(r'analytics', AnalyticsViewSet)
+router.register(r'persons', PersonViewSet, basename='persons')
+router.register(r'analytics', AnalyticsViewSet, basename='analytics')

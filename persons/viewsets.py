@@ -13,8 +13,7 @@ class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = PersonSerializer
 
 
-class AnalyticsViewSet(viewsets.ModelViewSet):
-    queryset = Person.objects.all()
+class AnalyticsViewSet(viewsets.ViewSet):
     
     @action(methods=['get'], detail=False)
     def stats(self, request):
